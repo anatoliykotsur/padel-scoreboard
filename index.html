@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <meta name="theme-color" content="#0b0c10" />
+  <title>Padel Season — Tolya &amp; Ruslana vs Yeva &amp; Max</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Ccircle cx='32' cy='32' r='28' fill='%23d4ff00'/%3E%3C/svg%3E" />
+</head>
+<body>
+  <main id="app" class="app">
+    <header class="header">
+      <div class="venue" id="venue"></div>
+      <h1 class="title">
+        Padel Season
+        <span class="subtitle">
+          <span class="team-name team-a" id="header-team-a"></span>
+          <span class="vs">vs</span>
+          <span class="team-name team-b" id="header-team-b"></span>
+        </span>
+      </h1>
+    </header>
+
+    <section class="series" aria-label="Series score">
+      <div class="series-side">
+        <div class="series-label team-a" id="series-label-a"></div>
+        <div class="series-score" id="series-score-a">0</div>
+      </div>
+      <div class="series-divider">–</div>
+      <div class="series-side">
+        <div class="series-label team-b" id="series-label-b"></div>
+        <div class="series-score" id="series-score-b">0</div>
+      </div>
+    </section>
+
+    <section class="series-meta" id="series-meta"></section>
+
+    <section class="matches" id="matches" aria-label="Matches"></section>
+
+    <footer class="footer">
+      <span id="updated"></span>
+    </footer>
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>

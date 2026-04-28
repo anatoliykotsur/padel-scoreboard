@@ -1,0 +1,45 @@
+{
+  "lastUpdated": "2026-04-28T19:40:00Z",
+  "teams": {
+    "A": { "name": "Tolya & Ruslana", "color": "#2563eb" },
+    "B": { "name": "Yeva & Max", "color": "#dc2626" }
+  },
+  "venue": "Aurial Padel Bratislava",
+  "matches": [
+    {
+      "id": 1,
+      "date": "2026-04-27",
+      "time": "20:30",
+      "court": "11 – Mikelssen",
+      "status": "completed",
+      "sets": [
+        { "a": 2, "b": 6 },
+        { "a": 5, "b": 6 }
+      ]
+    },
+    {
+      "id": 2,
+      "date": "2026-04-30",
+      "time": "20:30",
+      "court": "8 – Sytiq",
+      "status": "scheduled",
+      "sets": []
+    },
+    {
+      "id": 3,
+      "date": "2026-05-01",
+      "time": "18:30",
+      "court": "3 – Vöslauer",
+      "status": "scheduled",
+      "sets": []
+    },
+    {
+      "id": 4,
+      "date": "2026-05-03",
+      "time": "10:00",
+      "court": "11 – Mikelssen",
+      "status": "scheduled",
+      "sets": []
+    }
+  ]
+}
