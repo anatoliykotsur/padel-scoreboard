@@ -92,28 +92,30 @@
     }
   }
 
-  function renderScoreRow(team, label, color, sets, isWinner, status) {
-    const row = el("div", {
-      class: "score-row" + (isWinner ? " winner" : "") + (status !== "completed" ? " muted" : ""),
-      style: "--row-color: " + color + ";",
-    }, [
-      el("div", { class: "label" }, [
+  function renderSetColumn(index, set, teams) {
+    const aWon = set.a > set.b;
+    const top = aWon
+      ? { team: "A", value: set.a, color: teams.A.color }
+      : { team: "B", value: set.b, color: teams.B.color };
+    const bot = aWon
+      ? { team: "B", value: set.b, color: teams.B.color }
+      : { team: "A", value: set.a, color: teams.A.color };
+
+    const cell = (entry, isWinner) =>
+      el("div", {
+        class: "set-cell " + (isWinner ? "winner" : "loser"),
+        style: "--cell-color: " + entry.color + ";",
+        title: (isWinner ? teams[entry.team].name + " won set " : teams[entry.team].name + " lost set ") + (index + 1),
+      }, [
         el("span", { class: "swatch" }),
-        el("span", { class: "name" }, [label]),
-      ]),
-      (function () {
-        const setsEl = el("div", { class: "sets" });
-        if (status === "completed" && sets.length) {
-          for (const s of sets) {
-            setsEl.appendChild(el("span", { class: "set" }, [String(s[team])]));
-          }
-        } else {
-          setsEl.appendChild(el("span", { class: "set" }, ["—"]));
-        }
-        return setsEl;
-      })(),
+        el("span", { class: "num" }, [String(entry.value)]),
+      ]);
+
+    return el("div", { class: "set-col" }, [
+      el("div", { class: "set-label" }, ["Set " + (index + 1)]),
+      cell(top, true),
+      cell(bot, false),
     ]);
-    return row;
   }
 
   function renderMatch(match, data, nextId) {
@@ -140,11 +142,30 @@
     ]);
     card.appendChild(head);
 
-    const grid = el("div", { class: "score-grid" }, [
-      renderScoreRow("a", data.teams.A.name, data.teams.A.color, match.sets, winner === "A", match.status),
-      renderScoreRow("b", data.teams.B.name, data.teams.B.color, match.sets, winner === "B", match.status),
-    ]);
-    card.appendChild(grid);
+    if (match.status === "completed" && match.sets.length) {
+      const grid = el("div", { class: "score-grid" });
+      match.sets.forEach((s, i) => grid.appendChild(renderSetColumn(i, s, data.teams)));
+      card.appendChild(grid);
+
+      if (winner) {
+        const wTeam = data.teams[winner];
+        const lTeam = data.teams[winner === "A" ? "B" : "A"];
+        const summary = el("div", {
+          class: "match-summary",
+          style: "--summary-color: " + wTeam.color + ";",
+        }, [
+          el("span", { class: "dot" }),
+          el("span", { class: "winner-name" }, [wTeam.name]),
+          el("span", {}, ["def. " + lTeam.name]),
+        ]);
+        card.appendChild(summary);
+      }
+    } else {
+      const empty = el("div", { class: "score-grid empty" }, [
+        match.status === "scheduled" ? "Not played yet" : "—",
+      ]);
+      card.appendChild(empty);
+    }
 
     return card;
   }

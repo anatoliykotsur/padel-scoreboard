@@ -214,62 +214,91 @@ body {
 }
 
 .score-grid {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 6px;
-  align-items: center;
-}
-.score-row {
-  display: grid;
-  grid-template-columns: 1fr auto;
-  gap: 8px;
-  padding: 10px 12px;
-  border-radius: var(--radius-sm);
-  background: var(--bg-elev-2);
-  border: 1px solid transparent;
-  transition: background 0.15s ease;
-}
-.score-row.winner {
-  background: color-mix(in srgb, var(--row-color, var(--text)) 14%, var(--bg-elev-2));
-  border-color: color-mix(in srgb, var(--row-color, var(--text)) 35%, transparent);
-}
-.score-row .label {
-  font-size: 14px;
-  font-weight: 600;
-  color: var(--row-color, var(--text));
   display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  align-items: stretch;
+  background: var(--bg-elev-2);
+  border-radius: var(--radius-sm);
+  padding: 12px;
+}
+.set-col {
+  flex: 0 0 auto;
+  min-width: 56px;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 2px;
+}
+.set-col .set-label {
+  font-size: 10px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--text-mute);
+  text-align: center;
+  margin-bottom: 4px;
+}
+.set-cell {
+  display: grid;
+  grid-template-columns: 8px 1fr;
   align-items: center;
   gap: 8px;
-  min-width: 0;
+  padding: 8px 12px;
+  border-radius: 6px;
+  background: transparent;
+  font-variant-numeric: tabular-nums;
 }
-.score-row .label .swatch {
+.set-cell .swatch {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--row-color, var(--text));
-  flex: 0 0 auto;
+  background: var(--cell-color, var(--text));
 }
-.score-row .label .name {
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-.score-row .sets {
-  font-variant-numeric: tabular-nums;
+.set-cell .num {
+  font-size: 22px;
   font-weight: 700;
-  font-size: 16px;
-  letter-spacing: 0.02em;
+  letter-spacing: -0.01em;
   color: var(--text);
-  display: flex;
-  gap: 14px;
+  text-align: center;
 }
-.score-row .sets .set {
-  min-width: 14px;
-  text-align: right;
-}
-.score-row.muted .sets {
+.set-cell.loser .num {
   color: var(--text-mute);
   font-weight: 500;
+}
+.set-cell.winner {
+  background: color-mix(in srgb, var(--cell-color, var(--text)) 14%, transparent);
+}
+.set-cell.winner .num {
+  color: var(--text);
+}
+
+.score-grid.empty {
+  justify-content: center;
+  align-items: center;
+  padding: 18px 12px;
+  color: var(--text-mute);
+  font-size: 14px;
+  font-weight: 500;
+}
+
+.match-summary {
+  margin-top: 10px;
+  font-size: 12px;
+  color: var(--text-dim);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.match-summary .winner-name {
+  font-weight: 600;
+  color: var(--summary-color, var(--text));
+}
+.match-summary .dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--summary-color, var(--text));
 }
 
 .footer {
