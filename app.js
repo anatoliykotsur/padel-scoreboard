@@ -75,11 +75,12 @@
         const w = matchWinner(m);
         if (w === "A") aWins++;
         else if (w === "B") bWins++;
-        else if (w === "tie") { aWins++; bWins++; }
+        else if (w === "tie") { aWins += 0.5; bWins += 0.5; }
       }
     }
-    document.getElementById("series-score-a").textContent = String(aWins);
-    document.getElementById("series-score-b").textContent = String(bWins);
+    const fmtScore = (n) => (Number.isInteger(n) ? String(n) : n.toFixed(1));
+    document.getElementById("series-score-a").textContent = fmtScore(aWins);
+    document.getElementById("series-score-b").textContent = fmtScore(bWins);
 
     const total = data.matches.length;
     const remaining = total - played;
