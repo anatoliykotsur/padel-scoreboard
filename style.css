@@ -201,6 +201,11 @@ body {
   border-color: color-mix(in srgb, #9bd1a3 30%, var(--border));
   background: color-mix(in srgb, #9bd1a3 10%, var(--pill-bg));
 }
+.pill.tied {
+  color: #e8b86b;
+  border-color: color-mix(in srgb, #e8b86b 35%, var(--border));
+  background: color-mix(in srgb, #e8b86b 12%, var(--pill-bg));
+}
 .pill.next-up {
   color: var(--bg);
   background: var(--accent);
@@ -299,6 +304,12 @@ body {
   height: 6px;
   border-radius: 50%;
   background: var(--summary-color, var(--text));
+}
+.match-summary.tied {
+  --summary-color: #e8b86b;
+}
+.match-summary.tied .winner-name {
+  color: #e8b86b;
 }
 
 .footer {

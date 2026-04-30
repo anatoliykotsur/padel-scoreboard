@@ -24,7 +24,7 @@
     const { a, b } = setsWon(match);
     if (a > b) return "A";
     if (b > a) return "B";
-    return null;
+    return "tie";
   }
 
   function nextUpMatchId(matches) {
@@ -75,6 +75,7 @@
         const w = matchWinner(m);
         if (w === "A") aWins++;
         else if (w === "B") bWins++;
+        else if (w === "tie") { aWins++; bWins++; }
       }
     }
     document.getElementById("series-score-a").textContent = String(aWins);
@@ -126,8 +127,15 @@
       class: "match" + (match.status === "completed" ? " completed" : " upcoming") + (isNext ? " next-up" : ""),
     });
 
-    const pillClass = match.status === "completed" ? "pill completed" : isNext ? "pill next-up" : "pill";
-    const pillText = match.status === "completed" ? "Completed" : isNext ? "Next up" : "Upcoming";
+    let pillClass, pillText;
+    if (match.status === "completed") {
+      if (winner === "tie") { pillClass = "pill tied"; pillText = "Tied"; }
+      else { pillClass = "pill completed"; pillText = "Completed"; }
+    } else if (isNext) {
+      pillClass = "pill next-up"; pillText = "Next up";
+    } else {
+      pillClass = "pill"; pillText = "Upcoming";
+    }
 
     const head = el("div", { class: "match-head" }, [
       el("div", { class: "match-meta" }, [
@@ -147,7 +155,14 @@
       match.sets.forEach((s, i) => grid.appendChild(renderSetColumn(i, s, data.teams)));
       card.appendChild(grid);
 
-      if (winner) {
+      if (winner === "tie") {
+        const summary = el("div", { class: "match-summary tied" }, [
+          el("span", { class: "dot" }),
+          el("span", { class: "winner-name" }, ["Tied 1–1"]),
+          el("span", {}, ["match split, no winner"]),
+        ]);
+        card.appendChild(summary);
+      } else if (winner) {
         const wTeam = data.teams[winner];
         const lTeam = data.teams[winner === "A" ? "B" : "A"];
         const summary = el("div", {

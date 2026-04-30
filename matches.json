@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-28T19:50:00Z",
+  "lastUpdated": "2026-04-30T20:30:00Z",
   "teams": {
     "A": { "name": "Tolya & Ruslana", "color": "#2563eb" },
     "B": { "name": "Yeva & Max", "color": "#dc2626" }
@@ -22,8 +22,11 @@
       "date": "2026-04-30",
       "time": "20:30",
       "court": "8 – Sytiq",
-      "status": "scheduled",
-      "sets": []
+      "status": "completed",
+      "sets": [
+        { "a": 6, "b": 4 },
+        { "a": 3, "b": 4 }
+      ]
     },
     {
       "id": 3,
