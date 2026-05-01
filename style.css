@@ -220,70 +220,65 @@ body {
 
 .score-grid {
   display: flex;
-  gap: 10px;
-  flex-wrap: wrap;
-  align-items: stretch;
+  flex-direction: column;
+  gap: 4px;
   background: var(--bg-elev-2);
   border-radius: var(--radius-sm);
-  padding: 12px;
+  padding: 12px 14px;
 }
-.set-col {
-  flex: 0 0 auto;
-  min-width: 56px;
-  display: flex;
-  flex-direction: column;
-  align-items: stretch;
-  gap: 2px;
-}
-.set-col .set-label {
-  font-size: 10px;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  color: var(--text-mute);
-  text-align: center;
-  margin-bottom: 4px;
-}
-.set-col.tied .set-label {
-  color: #e8b86b;
-}
-.set-cell {
+.team-row {
   display: grid;
-  grid-template-columns: 8px 1fr;
+  grid-template-columns: minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 12px;
+  padding: 6px 0;
+}
+.team-row .team-label {
+  display: flex;
   align-items: center;
   gap: 8px;
-  padding: 8px 12px;
-  border-radius: 6px;
-  background: transparent;
-  font-variant-numeric: tabular-nums;
+  min-width: 0;
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--team-color, var(--text));
 }
-.set-cell .swatch {
+.team-row .team-label .swatch {
   width: 8px;
   height: 8px;
   border-radius: 50%;
-  background: var(--cell-color, var(--text));
+  background: var(--team-color, var(--text));
+  flex: 0 0 auto;
 }
-.set-cell .num {
-  font-size: 22px;
+.team-row .team-label .team-name {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.team-row .set-scores {
+  display: flex;
+  gap: 14px;
+  font-variant-numeric: tabular-nums;
+}
+.team-row .set-score {
+  min-width: 16px;
+  text-align: center;
+  font-size: 20px;
   font-weight: 700;
   letter-spacing: -0.01em;
   color: var(--text);
-  text-align: center;
 }
-.set-cell.loser .num {
+.team-row .set-score.loser {
   color: var(--text-mute);
   font-weight: 500;
 }
-.set-cell.winner {
-  background: color-mix(in srgb, var(--cell-color, var(--text)) 14%, transparent);
-}
-.set-cell.winner .num {
+.team-row .set-score.tied {
   color: var(--text);
+  font-weight: 600;
 }
 
 .score-grid.empty {
-  justify-content: center;
   align-items: center;
+  justify-content: center;
   padding: 18px 12px;
   color: var(--text-mute);
   font-size: 14px;

@@ -94,35 +94,30 @@
     }
   }
 
-  function renderSetColumn(index, set, teams) {
-    const tied = set.a === set.b;
-    const aOnTop = tied || set.a > set.b;
-    const top = aOnTop
-      ? { team: "A", value: set.a, color: teams.A.color }
-      : { team: "B", value: set.b, color: teams.B.color };
-    const bot = aOnTop
-      ? { team: "B", value: set.b, color: teams.B.color }
-      : { team: "A", value: set.a, color: teams.A.color };
+  function renderTeamRow(teamKey, match, teams) {
+    const team = teams[teamKey];
+    const myKey = teamKey.toLowerCase();
+    const oppKey = teamKey === "A" ? "b" : "a";
 
-    const cell = (entry, state) => {
-      let title;
-      if (state === "tied") title = "Set " + (index + 1) + " tied";
-      else if (state === "winner") title = teams[entry.team].name + " won set " + (index + 1);
-      else title = teams[entry.team].name + " lost set " + (index + 1);
-      return el("div", {
-        class: "set-cell " + state,
-        style: "--cell-color: " + entry.color + ";",
-        title: title,
-      }, [
+    const scoresEl = el("div", { class: "set-scores" });
+    match.sets.forEach((s) => {
+      const mine = s[myKey];
+      const opp = s[oppKey];
+      let state = "tied";
+      if (mine > opp) state = "winner";
+      else if (mine < opp) state = "loser";
+      scoresEl.appendChild(el("span", { class: "set-score " + state }, [String(mine)]));
+    });
+
+    return el("div", {
+      class: "team-row",
+      style: "--team-color: " + team.color + ";",
+    }, [
+      el("div", { class: "team-label" }, [
         el("span", { class: "swatch" }),
-        el("span", { class: "num" }, [String(entry.value)]),
-      ]);
-    };
-
-    return el("div", { class: "set-col" + (tied ? " tied" : "") }, [
-      el("div", { class: "set-label" }, ["Set " + (index + 1) + (tied ? " · tie" : "")]),
-      cell(top, tied ? "tied" : "winner"),
-      cell(bot, tied ? "tied" : "loser"),
+        el("span", { class: "team-name" }, [team.name]),
+      ]),
+      scoresEl,
     ]);
   }
 
@@ -158,8 +153,10 @@
     card.appendChild(head);
 
     if (match.status === "completed" && match.sets.length) {
-      const grid = el("div", { class: "score-grid" });
-      match.sets.forEach((s, i) => grid.appendChild(renderSetColumn(i, s, data.teams)));
+      const grid = el("div", { class: "score-grid" }, [
+        renderTeamRow("A", match, data.teams),
+        renderTeamRow("B", match, data.teams),
+      ]);
       card.appendChild(grid);
 
       if (winner === "tie") {
