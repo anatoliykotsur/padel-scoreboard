@@ -244,6 +244,9 @@ body {
   text-align: center;
   margin-bottom: 4px;
 }
+.set-col.tied .set-label {
+  color: #e8b86b;
+}
 .set-cell {
   display: grid;
   grid-template-columns: 8px 1fr;

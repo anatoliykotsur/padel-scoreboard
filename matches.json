@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-04-30T22:00:00Z",
+  "lastUpdated": "2026-05-01T20:00:00Z",
   "teams": {
     "A": { "name": "Tolya & Ruslana", "color": "#2563eb" },
     "B": { "name": "Yeva & Max", "color": "#dc2626" }
@@ -33,8 +33,13 @@
       "date": "2026-05-01",
       "time": "18:30",
       "court": "3 – Vöslauer",
-      "status": "scheduled",
-      "sets": []
+      "status": "completed",
+      "sets": [
+        { "a": 3, "b": 6 },
+        { "a": 1, "b": 6 },
+        { "a": 6, "b": 3 },
+        { "a": 2, "b": 2 }
+      ]
     },
     {
       "id": 4,

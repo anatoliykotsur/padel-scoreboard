@@ -95,28 +95,34 @@
   }
 
   function renderSetColumn(index, set, teams) {
-    const aWon = set.a > set.b;
-    const top = aWon
+    const tied = set.a === set.b;
+    const aOnTop = tied || set.a > set.b;
+    const top = aOnTop
       ? { team: "A", value: set.a, color: teams.A.color }
       : { team: "B", value: set.b, color: teams.B.color };
-    const bot = aWon
+    const bot = aOnTop
       ? { team: "B", value: set.b, color: teams.B.color }
       : { team: "A", value: set.a, color: teams.A.color };
 
-    const cell = (entry, isWinner) =>
-      el("div", {
-        class: "set-cell " + (isWinner ? "winner" : "loser"),
+    const cell = (entry, state) => {
+      let title;
+      if (state === "tied") title = "Set " + (index + 1) + " tied";
+      else if (state === "winner") title = teams[entry.team].name + " won set " + (index + 1);
+      else title = teams[entry.team].name + " lost set " + (index + 1);
+      return el("div", {
+        class: "set-cell " + state,
         style: "--cell-color: " + entry.color + ";",
-        title: (isWinner ? teams[entry.team].name + " won set " : teams[entry.team].name + " lost set ") + (index + 1),
+        title: title,
       }, [
         el("span", { class: "swatch" }),
         el("span", { class: "num" }, [String(entry.value)]),
       ]);
+    };
 
-    return el("div", { class: "set-col" }, [
-      el("div", { class: "set-label" }, ["Set " + (index + 1)]),
-      cell(top, true),
-      cell(bot, false),
+    return el("div", { class: "set-col" + (tied ? " tied" : "") }, [
+      el("div", { class: "set-label" }, ["Set " + (index + 1) + (tied ? " · tie" : "")]),
+      cell(top, tied ? "tied" : "winner"),
+      cell(bot, tied ? "tied" : "loser"),
     ]);
   }
 
