@@ -1,5 +1,5 @@
 {
-  "lastUpdated": "2026-05-01T20:30:00Z",
+  "lastUpdated": "2026-05-03T11:00:00Z",
   "teams": {
     "A": { "name": "Tolya & Ruslana", "color": "#2563eb" },
     "B": { "name": "Yeva & Max", "color": "#dc2626" }
@@ -46,8 +46,12 @@
       "date": "2026-05-03",
       "time": "10:00",
       "court": "11 – Mikelssen",
-      "status": "scheduled",
-      "sets": []
+      "status": "completed",
+      "sets": [
+        { "a": 6, "b": 3 },
+        { "a": 6, "b": 0 },
+        { "a": 2, "b": 3 }
+      ]
     }
   ]
 }
